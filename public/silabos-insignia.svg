@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 -18 156 166">
+  <defs>
+    <radialGradient id="gb" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FF2DA6"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </radialGradient>
+    <radialGradient id="gr" cx="35%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="50%" stop-color="#00C8FF"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </radialGradient>
+    <radialGradient id="hb" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="#FF2DA6" stop-opacity="0.22"/>
+      <stop offset="40%" stop-color="#FF2DA6" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#FF2DA6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="hr" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="#00C8FF" stop-opacity="0.22"/>
+      <stop offset="40%" stop-color="#00C8FF" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00C8FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bet-node" cx="40%" cy="35%" r="60%">
+      <stop offset="0%"   stop-color="#FF2DA6" stop-opacity="0.9"/>
+      <stop offset="60%"  stop-color="#A855F7" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#0A0A12" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="flash" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#A855F7" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur-heavy" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <filter id="glow-sm" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="1.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Resplandores fondo -->
+  <circle id="halo-b"  cx="24"  cy="14"  r="38" fill="url(#hb)" filter="url(#blur-heavy)" opacity="0"/>
+  <circle id="halo-b2" cx="24"  cy="14"  r="18" fill="#0A0A12" opacity="0" filter="url(#blur-heavy)"/>
+  <circle id="halo-r"  cx="100" cy="100" r="38" fill="url(#hr)" filter="url(#blur-heavy)" opacity="0"/>
+  <circle id="halo-r2" cx="100" cy="100" r="18" fill="#0A0A12" opacity="0" filter="url(#blur-heavy)"/>
+
+  <!-- Líneas — todas nítidas, SIN filtro -->
+  <line id="l1" x1="24"  y1="14"  x2="88"  y2="26"  stroke="#A855F7" stroke-width="1.2" stroke-linecap="round" opacity="0"/>
+  <line id="l2" x1="24"  y1="14"  x2="34"  y2="60"  stroke="#A855F7" stroke-width="1.2" stroke-linecap="round" opacity="0"/>
+  <line id="l3" x1="88"  y1="26"  x2="78"  y2="52"  stroke="#A855F7" stroke-width="1.2" stroke-linecap="round" opacity="0"/>
+  <line id="l4" x1="34"  y1="60"  x2="56"  y2="58"  stroke="#00C8FF" stroke-width="2"   stroke-linecap="round" opacity="0"/>
+  <line id="l5" x1="56"  y1="58"  x2="78"  y2="52"  stroke="#00C8FF" stroke-width="2"   stroke-linecap="round" opacity="0"/>
+  <line id="l6" x1="34"  y1="60"  x2="20"  y2="108" stroke="#A855F7" stroke-width="1.2" stroke-linecap="round" opacity="0"/>
+  <line id="l7" x1="78"  y1="52"  x2="100" y2="100" stroke="#A855F7" stroke-width="1.2" stroke-linecap="round" opacity="0"/>
+  <line id="l8" x1="20"  y1="108" x2="100" y2="100" stroke="#00C8FF" stroke-width="0.8" stroke-dasharray="3,4" stroke-linecap="round" opacity="0"/>
+
+  <!-- Nodos intermedios -->
+  <g id="s1" opacity="0"><circle cx="88"  cy="26"  r="7"  fill="#A855F7"/></g>
+  <g id="s2" opacity="0"><circle cx="34"  cy="60"  r="5"  fill="#00C8FF"/></g>
+  <g id="s3" opacity="0"><circle cx="56"  cy="58"  r="5"  fill="#00C8FF"/></g>
+  <g id="s4" opacity="0"><circle cx="78"  cy="52"  r="5"  fill="#00C8FF"/></g>
+  <g id="s5" opacity="0"><circle cx="20"  cy="108" r="6"  fill="#A855F7"/></g>
+
+  <!-- Betelgeuse: negro opaco tapa vértice + gradiente fuxia -->
+  <g id="s0" opacity="0">
+    <circle cx="24" cy="14" r="9" fill="#0A0A12"/>
+    <circle cx="24" cy="14" r="9" fill="url(#bet-node)" filter="url(#glow-sm)"/>
+  </g>
+
+  <!-- Rigel: S perfectamente centrada con dominant-baseline -->
+  <g id="s6" opacity="0" filter="url(#glow-sm)">
+    <circle cx="100" cy="100" r="8" fill="url(#gr)" opacity="0.75"/>
+    <circle cx="100" cy="100" r="8" fill="none" stroke="#0A0A12" stroke-width="0.5"/>
+    <text x="100" y="100" text-anchor="middle" dominant-baseline="central"
+      font-family="Georgia,serif" font-size="9" font-weight="700" fill="#0A0A12">S</text>
+  </g>
+
+  <!-- Flashes -->
+  <circle id="f0" cx="24"  cy="14"  r="1" fill="url(#flash)" opacity="0"/>
+  <circle id="f1" cx="88"  cy="26"  r="1" fill="url(#flash)" opacity="0"/>
+  <circle id="f2" cx="34"  cy="60"  r="1" fill="url(#flash)" opacity="0"/>
+  <circle id="f3" cx="56"  cy="58"  r="1" fill="url(#flash)" opacity="0"/>
+  <circle id="f4" cx="78"  cy="52"  r="1" fill="url(#flash)" opacity="0"/>
+  <circle id="f5" cx="20"  cy="108" r="1" fill="url(#flash)" opacity="0"/>
+  <circle id="f6" cx="100" cy="100" r="1" fill="url(#flash)" opacity="0"/>
+
+  <script><![CDATA[
+    const O=[{x:60,y:60},{x:-50,y:50},{x:35,y:-45},{x:-40,y:-35},{x:-35,y:40},{x:55,y:-50},{x:-55,y:-40}];
+    const F=[{x:24,y:14},{x:88,y:26},{x:34,y:60},{x:56,y:58},{x:78,y:52},{x:20,y:108},{x:100,y:100}];
+    const SD=900,SL=200,LS=7*SL+SD+200,LD=380,LL=120;
+    function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
+    function easeOut(t){return 1-Math.pow(1-t,3);}
+    function anim({dur,delay:d=0,onP,onD}){
+      const s=performance.now()+d;
+      function f(n){const e=n-s;if(e<0){requestAnimationFrame(f);return;}
+        const t=Math.min(1,e/dur);onP(t);
+        if(t<1)requestAnimationFrame(f);else if(onD)onD();}
+      requestAnimationFrame(f);}
+    function flash(el){anim({dur:550,onP(t){
+      el.setAttribute('r',easeOut(t)*26);
+      const op=t<.15?t/.15:1-(t-.15)/.85;el.setAttribute('opacity',op*.9);},
+      onD(){el.setAttribute('opacity',0);}});}
+    function fadeIn(el,dur,delay){anim({dur,delay,onP(t){el.setAttribute('opacity',easeOut(t));}});}
+    F.forEach((f,i)=>{
+      const el=document.getElementById('s'+i),fl=document.getElementById('f'+i),o=O[i];
+      const cx=(o.x+f.x)/2+(f.y-o.y)*.35,cy=(o.y+f.y)/2+(o.x-f.x)*.35;
+      anim({dur:SD,delay:i*SL,
+        onP(t){
+          const et=ease(t);
+          const bx=(1-et)*(1-et)*o.x+2*(1-et)*et*(cx-f.x)+et*et*0;
+          const by=(1-et)*(1-et)*o.y+2*(1-et)*et*(cy-f.y)+et*et*0;
+          el.setAttribute('opacity',Math.min(1,t*3));
+          el.setAttribute('transform',`translate(${bx},${by}) scale(${.05+.95*et})`);
+        },
+        onD(){
+          el.removeAttribute('transform');el.setAttribute('opacity',1);flash(fl);
+          if(i===0){fadeIn(document.getElementById('halo-b'),600,0);fadeIn(document.getElementById('halo-b2'),600,0);}
+          if(i===6){fadeIn(document.getElementById('halo-r'),600,0);fadeIn(document.getElementById('halo-r2'),600,0);}
+        }});
+    });
+    ['l1','l2','l3','l4','l5','l6','l7','l8'].forEach((id,li)=>{
+      const el=document.getElementById(id),delay=LS+li*LL;
+      if(li===7){anim({dur:LD,delay,onP(t){el.setAttribute('opacity',easeOut(t));}});}
+      else{
+        const len=Math.hypot(el.x2.baseVal.value-el.x1.baseVal.value,el.y2.baseVal.value-el.y1.baseVal.value);
+        el.setAttribute('opacity',1);el.style.strokeDasharray=len;el.style.strokeDashoffset=len;
+        anim({dur:LD,delay,onP(t){el.style.strokeDashoffset=len*(1-easeOut(t));}});}
+    });
+  ]]></script>
+</svg>

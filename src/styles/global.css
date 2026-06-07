@@ -1,0 +1,175 @@
+/* ─── ESTILOS GLOBALES · ConVozJugator (arcade) ───────────────────────────
+   Reset, scrollbar, fuentes base y las animaciones del carácter arcade.
+   Lo que no se puede hacer con estilos inline en React (keyframes, pseudo-
+   elementos, media queries, :hover) vive aquí. */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #0a0a12;
+  color: #fff;
+  font-family: "DM Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  overflow: hidden;
+}
+
+#root {
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* ── Scrollbar fina en tono morado ── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.4);
+  border-radius: 2px;
+}
+
+/* ── Botón: hover/active sutiles ── */
+.btn {
+  transition: opacity 0.2s, transform 0.12s, box-shadow 0.25s;
+}
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Entrada de pantalla ── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in {
+  animation: fadeInUp 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Micrófono: pulso en reposo (verde) ── */
+@keyframes micPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 8px rgba(57, 255, 20, 0.12), 0 0 30px rgba(57, 255, 20, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 14px rgba(57, 255, 20, 0.06), 0 0 44px rgba(57, 255, 20, 0.7);
+  }
+}
+.mic-idle {
+  animation: micPulse 2s ease-in-out infinite;
+}
+
+/* ── Micrófono: parpadeo al escuchar (rojo) ── */
+@keyframes micListen {
+  0%, 100% {
+    box-shadow: 0 0 0 8px rgba(255, 59, 107, 0.18), 0 0 32px rgba(255, 59, 107, 0.6);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 0 16px rgba(255, 59, 107, 0.08), 0 0 50px rgba(255, 59, 107, 0.85);
+    opacity: 0.85;
+  }
+}
+.mic-listening {
+  animation: micListen 1.2s ease-in-out infinite;
+}
+
+/* ── Marcador: glow que respira entre los neón ── */
+@keyframes hudGlow {
+  0% { text-shadow: 0 0 12px rgba(255, 45, 166, 0.6); }
+  33% { text-shadow: 0 0 12px rgba(168, 85, 247, 0.6); }
+  66% { text-shadow: 0 0 12px rgba(0, 200, 255, 0.6); }
+  100% { text-shadow: 0 0 12px rgba(255, 45, 166, 0.6); }
+}
+
+/* ── Logo ConVozJugator: tramos que derivan de color ── */
+@keyframes logoShift {
+  0% { color: #ff2da6; }
+  33% { color: #a855f7; }
+  66% { color: #00c8ff; }
+  100% { color: #ff2da6; }
+}
+.logo-shift { animation: logoShift 30s ease-in-out infinite; }
+
+/* ── Vibración de error (feedback incorrecto) ── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+.shake { animation: shake 0.4s ease-in-out; }
+
+/* ── Pop de acierto ── */
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.pop { animation: pop 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* ── Tarjeta con glow de acento en hover (color via --ac) ── */
+.glow-card {
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.3s ease;
+}
+.glow-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--ac) !important;
+  box-shadow: 0 0 24px -8px var(--ac);
+}
+
+/* ── Celebración de insignia: rayos girando + medalla con pop ── */
+@keyframes badgeRays {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.badge-rays {
+  animation: badgeRays 8s linear infinite;
+}
+@keyframes badgePop {
+  0% { transform: scale(0.3); opacity: 0; }
+  60% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
+}
+.badge-pop {
+  animation: badgePop 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── prefers-reduced-motion: apaga lo no esencial ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  .mic-idle,
+  .mic-listening,
+  .logo-shift,
+  .badge-rays,
+  .badge-pop {
+    animation: none !important;
+  }
+  html { scroll-behavior: auto; }
+  .glow-card:hover { transform: none; }
+}
