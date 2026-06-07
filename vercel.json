@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/convozjugator/(.*)", "destination": "/index.html" },
+    { "source": "/convozjugator", "destination": "/index.html" }
+  ]
+}
