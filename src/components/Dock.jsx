@@ -58,7 +58,7 @@ export default function Dock({ active, onNavigate }) {
               border: "none",
               cursor: "pointer",
               padding: "4px 10px",
-              color: isActive ? item.color : "rgba(255,255,255,0.4)",
+              color: isActive ? item.color : "rgba(255,255,255,0.7)",
               transform: isActive ? "translateY(-2px)" : "none",
               transition: "color 0.2s ease, transform 0.2s ease",
             }}
