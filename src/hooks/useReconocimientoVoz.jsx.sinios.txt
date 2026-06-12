@@ -1,46 +1,54 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 
-export function useReconocimientoVoz({ onResultado, idioma = "es-ES" } = {}) {
+// ─── HOOK DE RECONOCIMIENTO DE VOZ ────────────────────────────────────────
+// Envuelve la Web Speech API (SpeechRecognition). Expone:
+//   · soportado: si el navegador puede reconocer voz (Chrome/Edge/Android sí;
+//     Safari/iPhone y Firefox no, de forma fiable).
+//   · escuchando: si está captando audio ahora mismo.
+//   · iniciar(): empieza a escuchar; al obtener resultado llama a onResultado.
+//   · detener(): para.
+//
+// La detección de soporte permite que el juego oculte el campo de texto donde
+// hay voz y lo muestre como alternativa donde no la hay (esquema A+C acordado).
 
-  // ── FIX 1: calcular una sola vez, no en cada render ──────────────────────
-  const SpeechRecognition = useRef(
+export function useReconocimientoVoz({ onResultado, idioma = "es-ES" } = {}) {
+  // El constructor está prefijado en algunos navegadores.
+  const SpeechRecognition =
     typeof window !== "undefined"
       ? window.SpeechRecognition || window.webkitSpeechRecognition
-      : null
-  ).current;
+      : null;
 
   const soportado = !!SpeechRecognition;
   const [escuchando, setEscuchando] = useState(false);
   const recRef = useRef(null);
   const onResultadoRef = useRef(onResultado);
 
+  // Mantener la callback fresca sin recrear el reconocedor.
   useEffect(() => {
     onResultadoRef.current = onResultado;
   }, [onResultado]);
 
+  // Crear el reconocedor una sola vez.
   useEffect(() => {
     if (!soportado) return;
     const rec = new SpeechRecognition();
     rec.lang = idioma;
-    rec.interimResults = false;
+    rec.interimResults = false; // solo el resultado final
     rec.maxAlternatives = 1;
-    rec.continuous = false;       // ← ya lo tenías bien
+    rec.continuous = false;
 
     rec.onresult = (event) => {
       const texto = event.results[0]?.[0]?.transcript ?? "";
       if (onResultadoRef.current) onResultadoRef.current(texto);
     };
     rec.onend = () => setEscuchando(false);
-    rec.onerror = (e) => {
-      console.warn("SpeechRecognition error:", e.error);
-      setEscuchando(false);
-    };
+    rec.onerror = () => setEscuchando(false);
 
     recRef.current = rec;
     return () => {
       try { rec.abort(); } catch { /* nada */ }
     };
-  }, [soportado, idioma]); // ── FIX 2: SpeechRecognition fuera de deps ──────
+  }, [soportado, idioma, SpeechRecognition]);
 
   const iniciar = useCallback(() => {
     if (!soportado || !recRef.current || escuchando) return;
@@ -48,7 +56,7 @@ export function useReconocimientoVoz({ onResultado, idioma = "es-ES" } = {}) {
       recRef.current.start();
       setEscuchando(true);
     } catch {
-      /* start() lanza si ya estaba activo */
+      // start() lanza si ya estaba activo; lo ignoramos.
     }
   }, [soportado, escuchando]);
 
